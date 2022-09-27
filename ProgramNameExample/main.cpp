@@ -7,12 +7,12 @@
 /**
  * @brief Main : Entry point for program control (update and render loop)
  * Prepares window and other graphical components through some rendering API (ex. glfw/opengl3/glad, Vulkan, DirectX)
- * 
- * @param hInsstance 
- * @param hPrevInstance 
- * @param lcCmdLine 
- * @param nShowCmd 
- * @return int 
+ *
+ * @param hInsstance
+ * @param hPrevInstance
+ * @param lcCmdLine
+ * @param nShowCmd
+ * @return int
  */
 int main()
 {
@@ -47,6 +47,7 @@ int main()
 
 	// Financial Planner core (Init(), Update(), Render(), Shutdown())
     entryPointExample.Init(window, glsl_version);
+
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);

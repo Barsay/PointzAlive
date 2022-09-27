@@ -16,8 +16,8 @@ void EntryPointExample::Init(GLFWwindow* window, const char* glsl_version)
     //io.ConfigViewportsNoTaskBarIcon = true;
 
     // Anti-Aliased plots
-    ImPlot::GetStyle().AntiAliasedLines = true;
-	
+//    ImPlot::GetStyle().AntiAliasedLines = true;
+
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
@@ -29,7 +29,7 @@ void EntryPointExample::Init(GLFWwindow* window, const char* glsl_version)
 
 void EntryPointExample::Update()
 {
-    // opt 
+    // opt
     static bool opt_fullscreen = true;
     static bool opt_padding = false;
     static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -121,7 +121,7 @@ void EntryPointExample::Update()
             ImPlot::ShowColormapSelector("ImPlot Colormap");
             ImPlot::ShowInputMapSelector("Input Map");
             ImGui::Separator();
-            ImGui::Checkbox("Anti-Aliased Lines", &ImPlot::GetStyle().AntiAliasedLines);
+//            ImGui::Checkbox("Anti-Aliased Lines", &ImPlot::GetStyle().AntiAliasedLines);
             ImGui::Checkbox("Use Local Time", &ImPlot::GetStyle().UseLocalTime);
             ImGui::Checkbox("Use ISO 8601", &ImPlot::GetStyle().UseISO8601);
             ImGui::EndMenu();
@@ -140,6 +140,7 @@ void EntryPointExample::Update()
     // Your GUIs go Here !
     this->ShowDemoWindow();
     this->ShowDemoPlot();
+    this->ShowThing();
     //this->ShowFontTesting();
     this->ShowMainView();
 
@@ -507,10 +508,10 @@ void EntryPointExample::ShowDemoWindow()
             for (int i = 0; i < 5; i++)
                 ImGui::Text("More content %d", i);
         }
-        
+
         if (ImGui::CollapsingHeader("Header with a bullet", ImGuiTreeNodeFlags_Bullet))
             ImGui::Text("IsItemHovered: %d", ImGui::IsItemHovered());
-        
+
         ImGui::TreePop();
     }
 
@@ -792,7 +793,7 @@ void EntryPointExample::ShowDemoWindow()
                     selection[4] = !selection[4];
             ImGui::TreePop();
         }
-       
+
         if (ImGui::TreeNode("Selection State: Single Selection"))
         {
             static int selected = -1;
@@ -805,7 +806,7 @@ void EntryPointExample::ShowDemoWindow()
             }
             ImGui::TreePop();
         }
-        
+
         if (ImGui::TreeNode("Selection State: Multiple Selection"))
         {
             HelpMarker("Hold CTRL and click to select multiple items.");
@@ -823,7 +824,7 @@ void EntryPointExample::ShowDemoWindow()
             }
             ImGui::TreePop();
         }
-        
+
         if (ImGui::TreeNode("Rendering more text into the same line"))
         {
             // Using the Selectable() override that takes "bool* p_selected" parameter,
@@ -834,7 +835,7 @@ void EntryPointExample::ShowDemoWindow()
             ImGui::Selectable("Hello.h", &selected[2]); ImGui::SameLine(300); ImGui::Text(" 2,345 bytes");
             ImGui::TreePop();
         }
-        
+
         if (ImGui::TreeNode("In columns"))
         {
             static bool selected[10] = {};
@@ -869,7 +870,7 @@ void EntryPointExample::ShowDemoWindow()
             }
             ImGui::TreePop();
         }
-        
+
         if (ImGui::TreeNode("Grid"))
         {
             static char selected[4][4] = { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 } };
@@ -902,7 +903,7 @@ void EntryPointExample::ShowDemoWindow()
                 ImGui::PopStyleVar();
             ImGui::TreePop();
         }
-       
+
         if (ImGui::TreeNode("Alignment"))
         {
             HelpMarker(
@@ -1517,7 +1518,7 @@ void EntryPointExample::ShowDemoWindow()
         ImGui::SliderInt("SliderInt (0 -> 100)", &slider_i, 0, 100, "%d", flags);
 
         ImGui::TreePop();
-    } 
+    }
 
     if (ImGui::TreeNode("Range Widgets"))
     {
@@ -1607,14 +1608,14 @@ void EntryPointExample::ShowDemoWindow()
         ImGui::SliderScalar("slider u32 low", ImGuiDataType_U32, &u32_v, &u32_zero, &u32_fifty, "%u");
         ImGui::SliderScalar("slider u32 high", ImGuiDataType_U32, &u32_v, &u32_hi_a, &u32_hi_b, "%u");
         ImGui::SliderScalar("slider u32 full", ImGuiDataType_U32, &u32_v, &u32_min, &u32_max, "%u");
-        
+
         //ImGui::SliderScalar("slider s64 low", ImGuiDataType_S64, &s64_v, &s64_zero, &s64_fifty, "%" IM_PRId64);
         //ImGui::SliderScalar("slider s64 high", ImGuiDataType_S64, &s64_v, &s64_hi_a, &s64_hi_b, "%" IM_PRId64);
         //ImGui::SliderScalar("slider s64 full", ImGuiDataType_S64, &s64_v, &s64_min, &s64_max, "%" IM_PRId64);
         //ImGui::SliderScalar("slider u64 low", ImGuiDataType_U64, &u64_v, &u64_zero, &u64_fifty, "%" IM_PRIu64 " ms");
         //ImGui::SliderScalar("slider u64 high", ImGuiDataType_U64, &u64_v, &u64_hi_a, &u64_hi_b, "%" IM_PRIu64 " ms");
         //ImGui::SliderScalar("slider u64 full", ImGuiDataType_U64, &u64_v, &u64_min, &u64_max, "%" IM_PRIu64 " ms");
-        
+
         ImGui::SliderScalar("slider float low", ImGuiDataType_Float, &f32_v, &f32_zero, &f32_one);
         ImGui::SliderScalar("slider float low log", ImGuiDataType_Float, &f32_v, &f32_zero, &f32_one, "%.10f", ImGuiSliderFlags_Logarithmic);
         ImGui::SliderScalar("slider float high", ImGuiDataType_Float, &f32_v, &f32_lo_a, &f32_hi_a, "%e");
@@ -2049,6 +2050,15 @@ void EntryPointExample::ShowDemoWindow()
     ImGui::End();
 }
 
+
+
+void EntryPointExample::ShowThing(){
+    ImGui::Begin("AAAA");
+
+
+    ImGui::End();
+};
+
 void EntryPointExample::ShowDemoPlot()
 {
     float x_data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -2126,7 +2136,7 @@ bool EntryPointExample::ShowStyleSelectorPLOT(const char* label)
 void EntryPointExample::SetDarkThemeColors()
 {
     auto& colors = ImGui::GetStyle().Colors;
-    
+
     colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
 
     // Headers

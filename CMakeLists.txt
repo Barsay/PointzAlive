@@ -10,4 +10,6 @@ set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
 # Include subdirectories
-add_subdirectory ("ProgramNameExample")
+#add_subdirectory ("ProgramNameExample")
+
+add_subdirectory("PointzAlive")
