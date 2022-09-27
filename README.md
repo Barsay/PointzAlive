@@ -10,6 +10,8 @@ A little and simple phisics game, made for fun. <br>
 ## installation
 ### Windows
 
+Download a windows build from [Here](https://github.com/Barsay/PointzAlive/releases)
+
 
 ### Build on Linux using CMake (not tested yet)
 - Download and install [vcpkg](https://vcpkg.io/en/getting-started.html). Then:
