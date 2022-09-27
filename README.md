@@ -1,6 +1,7 @@
 # PointzAlive
 
 A little and simple phisics game, made for fun. <br>
+This project is a *Work in progress* (probably it will be for a long time).
 
 <p align="center">
     <img src="Images/Img.png" width="600">
@@ -9,6 +10,8 @@ A little and simple phisics game, made for fun. <br>
 
 ## installation
 ### Windows
+
+Download a windows build from [Here](https://github.com/Barsay/PointzAlive/releases)
 
 
 ### Build on Linux using CMake (not tested yet)
