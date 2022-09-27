@@ -25,4 +25,4 @@ When building is complete, to run it:
 
     make run
 ## Thanks
-The initial template for this repository was downloaded from Alberto Foti's excellent [Imgui template]
+The initial template for this repository was downloaded from Alberto Foti's excellent [Imgui template](https://github.com/XXmorpheusX/ImGuiTemplate)
