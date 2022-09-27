@@ -1,6 +1,7 @@
 # PointzAlive
 
 A little and simple phisics game, made for fun. <br>
+This project is a *Work in progress* (probably it will be for a long time).
 
 <p align="center">
     <img src="Images/Img.png" width="600">
