@@ -1,8 +1,8 @@
-# ImGui Template for C++ on Windows
+# PointzAlive
 
-ImGui Template to develop C++ Desktop Apps
+A little cowboycoded project
 
-## Vcpkg install
+## install
 Follow instruction on https://vcpkg.io/en/getting-started.html :
 
 in C:\dev
@@ -36,11 +36,5 @@ Just as an example for imgui
 
     vcpkg install imgui[docking-experimental,glfw-binding, opengl3-binding]:x64-windows
 
-## Libraries Used
-
-- vcpkg library manager
-
-- ImGui library (docking branch)
-
-## License and Copyright
-© 2022 Alberto Foti. MIT License.
+## Thanks
+The initial template was downloaded from Alberto Foti's excellent Imgui template]

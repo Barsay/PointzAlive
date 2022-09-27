@@ -116,7 +116,7 @@ public:
 
         for (int i=0; i<COLOR_MAX;i++){
             for (int j=0;j<nColors[i]; j++){
-                points.emplace_back(rand() % width,rand() % height,(int)rand()%15-7 ,(int)rand()%15-7, colorMap[i]);
+                points.emplace_back(rand() % width,rand() % height,(int)rand()%5-2 ,(int)rand()%5-2, colorMap[i]);
             }
         }
     }
