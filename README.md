@@ -1,40 +1,28 @@
 # PointzAlive
 
-A little cowboycoded project
+A little and simple phisics game, made for fun. <br>
 
-## install
-Follow instruction on https://vcpkg.io/en/getting-started.html :
-
-in C:\dev
-
-    git clone <url>
-    .\vcpkg\bootstrap-vcpkg.bat
-
-    cd vcpkg
-    vcpkg integrate install
-
-Then, follow the procedure of your IDE to add vcpkg as a CMake Option:
-
-For Clion
-
-- Linux
+<p align="center">
+    <img src="Images/Img.png" width="600">
+</p>
 
 
-    -DCMAKE_TOOLCHAIN_FILE=[vcpkg root]/scripts/buildsystems/vcpkg.cmake
+## installation
+### Windows
 
-- Windows
+
+### Build on Linux using CMake (not tested yet)
+- Download and install [vcpkg](https://vcpkg.io/en/getting-started.html). Then:
 
 
-    -DCMAKE_TOOLCHAIN_FILE=[vcpkg root]/scripts/buildsystems/vcpkg.cmake
+    git clone <this project>
+    cd PointzAlive
+    mkdir build
+    cmake -DCMAKE_TOOLCHAIN_FILE=C:\Users\Thoma\dev\vcpkg\scripts\buildsystems\vcpkg.cmake ..
+    make
+    cd ..
+When building is complete, to run it:
 
-If you want to search additional libraries use
-
-    vcpkg search <library_name>
-    vcpkg install <library_name>[<feature>]:<target>
-
-Just as an example for imgui
-
-    vcpkg install imgui[docking-experimental,glfw-binding, opengl3-binding]:x64-windows
-
+    make run
 ## Thanks
-The initial template was downloaded from Alberto Foti's excellent Imgui template]
+The initial template for this repository was downloaded from Alberto Foti's excellent [Imgui template]

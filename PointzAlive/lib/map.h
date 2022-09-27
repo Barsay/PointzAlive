@@ -8,12 +8,14 @@
 #include <vector>
 #include "Point.h"
 #include "games/life_game.h"
+#include "games/gravitator.h"
 #include <thread>
 
 enum Games{
     NOGAME,
     BALLPIT,
-    LIFE_GAME
+    LIFE_GAME,
+    GRAVITATOR
 };
 
 using namespace std;
@@ -175,9 +177,13 @@ public:
                     checkbound(point);
                     lifeGame::updateVelocity(point, points, point.getVelocity()[0], point.getVelocity()[1]);
                     point.move();
+                }
             }
-
-
+        }else if(game == GRAVITATOR){
+            for (auto &point: points) {
+                checkbound(point);
+                gravitator::updateVelocity(point, point.getVelocity()[0],point.getVelocity()[1]);
+                point.move();
             }
         }
     }

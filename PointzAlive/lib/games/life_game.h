@@ -7,6 +7,7 @@
 #include <SFML/Window/Event.hpp>
 #include <vector>
 #include "Point.h"
+
 namespace lifeGame {
 
     //ciano - Verde attrazione
@@ -97,7 +98,6 @@ namespace lifeGame {
                           << " F " << F << " fx " << fx << " fy " << fy
                           << " vx <<" << vvx << " vy  " << vvy << " with d= " << d << ", F= " << F << std::endl;
 */
-
             }
             P.setVelocity({static_cast<float>(vvx), static_cast<float>(vvy)});
             /*

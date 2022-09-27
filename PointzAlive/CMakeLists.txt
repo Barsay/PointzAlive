@@ -8,7 +8,7 @@ find_package(implot CONFIG REQUIRED)
 find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 find_package(ImGui-SFML CONFIG REQUIRED)
 
-add_executable (${PROJECT_NAME} "main.cpp" ./lib/GameSelector.h ./lib/map.h ./lib/point.h ./lib/games/life_game.h)
+add_executable (${PROJECT_NAME} "main.cpp" ./lib/GameSelector.h ./lib/map.h ./lib/point.h ./lib/games/life_game.h lib/games/gravitator.h)
 
 # sub directories
 #add_subdirectory("assets")

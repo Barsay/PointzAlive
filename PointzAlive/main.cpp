@@ -35,16 +35,13 @@ int main(){
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
-
-        ImGui::Begin("Game Settings");
-        ImGui::End();
-
         mySelector.ShowGameSettings();
 
         window.clear();
         demoMap.update();
         demoMap.calculate(mySelector.getSelection());
         demoMap.show();
+
 
         //------------------//
         ImGui::SFML::Render(window);

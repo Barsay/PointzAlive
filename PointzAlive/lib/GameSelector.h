@@ -21,11 +21,13 @@ private:
 public:
 
 
-    GameSelector(map *map):selection(NOGAME), myMap(map){
-    }
+    GameSelector(map *map):selection(NOGAME), myMap(map){}
 
     void ShowGameSettings(){
         ImGui::Begin("Game", nullptr, ImGuiWindowFlags_MenuBar);
+        ImGui::Separator();
+        ImGui::Text("BallzAlive 0.0.1 - Nothing of this is truly stable");
+        ImGui::Separator();
         showSelectionMenu();
         showGameMenu();
         ImGui::End();
@@ -41,6 +43,8 @@ public:
                     selection = BALLPIT;
                 }else if (ImGui::MenuItem("Life Game")) {
                     selection = LIFE_GAME;
+                }else if (ImGui::MenuItem("Gravitator")) {
+                    selection = GRAVITATOR;
                 }
                 ImGui::EndMenu();
             }
@@ -78,8 +82,17 @@ public:
             ImGui::SliderInt("Magenta Balls", &myMap->numberOfcolors[map::MAGENTA], 0, 500);
             ImGui::Separator();
             ImGui::SliderInt("Number of threads", &myMap->nthreads, 1, 10);
-
-
+        }
+        if(selection == GRAVITATOR){
+            myMap->numberOfcolors[map::WHITE]  = 0;
+            ImGui::SliderInt("Number of balls", &myMap->numberOfcolors[map::GREEN], 0, 500);
+            if(ImGui::Button("Randomize Colors")){
+                myMap->numberOfcolors[map::GREEN] = rand()%500;
+                myMap->numberOfcolors[map::WHITE]  = rand()%500;
+                myMap->numberOfcolors[map::CYAN] = rand()%500;
+                myMap->numberOfcolors[map::BLUE] = rand()%500;
+                myMap->numberOfcolors[map::MAGENTA] = rand()%500;
+            };
         }
     }
 
