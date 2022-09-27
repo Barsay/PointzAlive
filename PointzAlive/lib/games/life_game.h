@@ -89,7 +89,7 @@ namespace lifeGame {
 
                 //d= rad (dx^2+dy^2);
 
-                F = -lifeGame::rule(P,p)*(100)/((d*d*d*d));
+                F = -lifeGame::rule(P,p)*(100)/((d*d*d));
                 fx = F*distancex;
                 fy = F*distancey;
                 vvx = (vvx+fx);

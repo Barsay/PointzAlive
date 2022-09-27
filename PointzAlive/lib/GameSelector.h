@@ -19,8 +19,6 @@ private:
     map *myMap;
 
 public:
-
-
     GameSelector(map *map):selection(NOGAME), myMap(map){}
 
     void ShowGameSettings(){
