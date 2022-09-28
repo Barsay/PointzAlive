@@ -1,6 +1,6 @@
 # PointzAlive
 
-A little and simple phisics game, made for fun. <br>
+A simple particle game, made for fun. <br>
 This project is a *Work in progress* (probably it will be forever).
 
 <p align="center">
