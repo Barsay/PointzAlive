@@ -15,7 +15,7 @@ namespace lifeGame {
     float rule(Point &p1, Point &p2){
         if (p1.getColor()==sf::Color::Cyan){
             if (p2.getColor()==sf::Color::Cyan){
-                return -1;
+                return -0.3;
             }
             if (p2.getColor()==sf::Color::Blue){
                 return +0.3;
@@ -38,7 +38,7 @@ namespace lifeGame {
                 return +0.3;
             }
             if (p2.getColor()==sf::Color::Green){
-                return -1;
+                return -0.3;
             }
 
         }
@@ -47,7 +47,7 @@ namespace lifeGame {
                 return +0.8;
             }
             if (p2.getColor()==sf::Color::Blue){
-                return -1;
+                return -0.3;
             }
             if (p2.getColor()==sf::Color::Magenta){
                 return -1;
@@ -64,7 +64,7 @@ namespace lifeGame {
                 return -1;
             }
             if (p2.getColor()==sf::Color::Magenta){
-                return -1;
+                return -0.3;
             }
             if (p2.getColor()==sf::Color::Green){
                 return +0.8;
@@ -85,26 +85,25 @@ namespace lifeGame {
             distancey = P.getPosition()[1] - p.getPosition()[1];
             d = sqrt((distancex*distancex)+(distancey*distancey));
 
-            if(d!=0  && d<80 &&d>2) {
+            if(d!=0  && d<150 &&d>2) {
 
                 //d= rad (dx^2+dy^2);
 
-                F = -lifeGame::rule(P,p)*(100)/((d*d*d));
-                fx = F*distancex;
-                fy = F*distancey;
-                vvx = (vvx+fx);
-                vvy = (vvy+fy);
-    /*            std::cout << "has distancex " << distancex << " distancey " << distancey
-                          << " F " << F << " fx " << fx << " fy " << fy
-                          << " vx <<" << vvx << " vy  " << vvy << " with d= " << d << ", F= " << F << std::endl;
-*/
-            }
-            P.setVelocity({static_cast<float>(vvx), static_cast<float>(vvy)});
-            /*
-            P.setVelocity({distancex != 0 ? (float) P.getVelocity()[0] + 1 / (10*distancex) : (float) P.getVelocity()[0],
-                           distancey != 0 ? (float) P.getVelocity()[1] + 1 / (10*distancey) : (float) P.getVelocity()[1]});
+                F = -lifeGame::rule(P, p) * (3) / ((d * d));
+                fx = fx + F * distancex;
+                fy = fy + F * distancey;
+
+                /*            std::cout << "has distancex " << distancex << " distancey " << distancey
+                                      << " F " << F << " fx " << fx << " fy " << fy
+                                      << " vx <<" << vvx << " vy  " << vvy << " with d= " << d << ", F= " << F << std::endl;
             */
+            }
         }
+        vvx = (vvx+fx);
+        vvy = (vvy+fy);
+
+        P.setVelocity({static_cast<float>(vvx-vvx*0.03), static_cast<float>(vvy-vvy*0.03)});
+
         return true;
     }
 

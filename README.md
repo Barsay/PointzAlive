@@ -1,12 +1,20 @@
 # PointzAlive
 
 A little and simple phisics game, made for fun. <br>
-This project is a *Work in progress* (probably it will be for a long time).
+This project is a *Work in progress* (probably it will be forever).
 
 <p align="center">
-    <img src="Images/Img.png" width="600">
+    <img src="Images/1.png" width="600">
 </p>
-
+<p align="center">
+    <img src="Images/2.png" width="600">
+</p>
+<p align="center">
+    <img src="Images/3.png" width="600">
+</p>
+<p align="center">
+    <img src="Images/4.png" width="600">
+</p>
 
 ## installation
 ### Windows
