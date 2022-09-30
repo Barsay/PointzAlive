@@ -366,5 +366,7 @@ FodyWeavers.xsd
 cmake-build-debug
 cmake-build-debug-visual-studio
 cmake-build-debug-mingw/
-
+cmake-build-debug-android/
+cmake-build-*/
 cmake-build-release-visual-studio/
+build/
