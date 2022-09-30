@@ -5,30 +5,20 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
+#include <utility>
 #include <vector>
 #include "Point.h"
-#include "games/life_game.h"
-#include "games/gravitator.h"
 #include <thread>
 
-enum Games{
-    NOGAME,
-    BALLPIT,
-    LIFE_GAME,
-    GRAVITATOR
-};
 
 using namespace std;
 
 class map {
 private:
-    std::vector<Point> points;
     int height;
     int width;
-    vector<int> nColors;
     sf::RenderWindow *graphicwindow;
     bool debug;
-    std::vector<sf::Color> colorMap;
     int game;
 
     void checkbound(Point &point){
@@ -51,22 +41,14 @@ private:
             point.setVelocity({point.getVelocity()[0],-point.getVelocity()[1]});
             point.setPosition({point.getPosition()[0],(float) height-1});
         }
-
        // cout << "has now velocity "<<point.getVelocity()[0]<<" "<<point.getVelocity()[0]<<endl;
     }
 
-    bool hasColorChanged(){
-        for (int i=0; i< COLOR_MAX; i++){
-            if(numberOfcolors[i] != nColors[i]){
-                return true;
-            }
-        }
-        return false;
-    }
 
 public:
     int nthreads;
-    std::vector<int>numberOfcolors;
+    std::vector<sf::Color> colorMap;
+    std::vector<Point> points;
 
     enum colors{
         BLUE,
@@ -90,102 +72,29 @@ public:
         colorMap[MAGENTA] = sf::Color::Magenta;
         colorMap[WHITE] = sf::Color::White;
 
-        nColors.resize(COLOR_MAX);
-        numberOfcolors.resize(COLOR_MAX);
+
     }
 
-    void update(){
-        /*
-        if(height != graphicwindow->getSize().y ||  width!= graphicwindow->getSize().x){
-            height= graphicwindow->getSize().y;
-            width= graphicwindow->getSize().x;
+    void update( std::function<void(map *)> fn){
+        fn(this);
+        for (auto &point: points) {
+            checkbound(point);
+            point.move();
         }
-         */
 
-        if (hasColorChanged()){
-            points.clear();
-            nColors = numberOfcolors;
-            init();
-        }
     }
 
-    void init(){
-        int totalPoints=0;
-        for(int i=0; i<COLOR_MAX;i++){
-            totalPoints = totalPoints + nColors[i];
-        }
-        points.reserve(totalPoints);
 
-        for (int i=0; i<COLOR_MAX;i++){
-            for (int j=0;j<nColors[i]; j++){
-                points.emplace_back(rand() % width,rand() % height,(int)rand()%5-2 ,(int)rand()%5-2, colorMap[i]);
-            }
-        }
+    /**
+     * Inits the points vector inside map.
+     * @param fn function that returns the vector of points.
+     */
+    void init(std::vector<Point> ptV){
+        points.clear();
+        points = std::move(ptV);
     }
 
-    void calculate(int game){
-        this->game = game;
-        if (game == BALLPIT) {
-            for (auto &point: points) {
-                checkbound(point);
-                point.move();
-            }
-
-
-        } else if (game == LIFE_GAME){
-            if(nthreads > 1 && points.size() > nthreads){
-                std::vector<shared_ptr<std::thread>> threads;
-
-                //divide number of points in equal numbers
-                int total = (int ) points.size()/nthreads;
-                int resto = points.size()%nthreads;
-
-                //cout << "total points " << points.size() << " total " <<total<< " resto " << resto <<endl;
-                threads.resize(nthreads);
-
-                int start=0, stop =total-1;
-                for (int i=0; i<nthreads;i++){
-                    //last iteration add resto. this will result in a longer last vector but ok for now
-                    if (i==nthreads-1){
-                        stop = points.size()-1;
-                    }
-
-                    threads[i]= make_shared<std::thread>([this](int start, int stop, vector<Point> &pointsVector){
-
-                        //cout << "heh tread" <<endl;
-
-                        for (int i=start; i<=stop;i++){
-                            checkbound(points[i]);
-                            lifeGame::updateVelocity(points[i], points, points[i].getVelocity()[0], points[i].getVelocity()[1]);
-                            points[i].move();
-
-                        }
-                    },start, stop, points );
-
-                    start =stop+1;
-                    stop +=total;
-                }
-
-                int i =0;
-                for(auto &thread : threads ){
-                    thread->join();
-                    //cout <<"stopped thread " << i<<endl;
-                    i++;
-                }
-            } else {
-                for (auto &point: points) {
-                    checkbound(point);
-                    lifeGame::updateVelocity(point, points, point.getVelocity()[0], point.getVelocity()[1]);
-                    point.move();
-                }
-            }
-        }else if(game == GRAVITATOR){
-            for (auto &point: points) {
-                checkbound(point);
-                gravitator::updateVelocity(point, point.getVelocity()[0],point.getVelocity()[1]);
-                point.move();
-            }
-        }
+    void calculate(){
     }
 
     void show(){
@@ -193,6 +102,15 @@ public:
             point.show(graphicwindow);
         }
     }
+
+    int getHeight() const {
+        return height;
+    }
+
+    int getWidth() const {
+        return width;
+    }
+
 
 };
 #endif //PROGRAMNAMEEXAMPLE_MAP_H

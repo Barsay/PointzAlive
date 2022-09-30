@@ -16,7 +16,6 @@ private:
     std::vector<float> position;
     std::vector<float> velocity;
     sf::Color color;
-
     float mass;
 public:
     //constructor
@@ -37,7 +36,6 @@ public:
     }
 
 
-public:
     const std::vector<float> &getPosition() const {
         return position;
     }
@@ -46,7 +44,7 @@ public:
         Point::position = position;
     }
 
-    std::vector<float> getVelocity() {
+    std::vector<float> getVelocity() const {
         return velocity;
     }
 
@@ -56,6 +54,26 @@ public:
 
     const sf::Color &getColor() const {
         return color;
+    }
+
+    const sf::CircleShape &getShape() const {
+        return shape;
+    }
+
+    void setShape(const sf::CircleShape &shape) {
+        Point::shape = shape;
+    }
+
+    void setColor(const sf::Color &color) {
+        Point::color = color;
+    }
+
+    float getMass() const {
+        return mass;
+    }
+
+    void setMass(float mass) {
+        Point::mass = mass;
     }
 
 };

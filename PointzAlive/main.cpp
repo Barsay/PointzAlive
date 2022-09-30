@@ -8,7 +8,7 @@
 #include <SFML/Window/Event.hpp>
 #include "lib/Point.h"
 #include "lib/map.h"
-#include "lib/GameSelector.h"
+#include "lib/Game.h"
 
 int main(){
     //create window
@@ -18,8 +18,7 @@ int main(){
 
 
     map demoMap(&window,true);
-    demoMap.init();
-    GameSelector mySelector(&demoMap);
+    Game myGame(&demoMap);
     sf::Clock deltaClock;
 
 
@@ -35,11 +34,9 @@ int main(){
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
-        mySelector.ShowGameSettings();
-
         window.clear();
-        demoMap.update();
-        demoMap.calculate(mySelector.getSelection());
+        myGame.ShowGameSettings();
+        myGame.step();
         demoMap.show();
 
 
