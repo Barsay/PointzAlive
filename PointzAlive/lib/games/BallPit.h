@@ -11,6 +11,8 @@
 
 namespace ballpit {
 
+    static int numberOfTypes = 4;
+
     static std::function<std::vector<Point>()> init(){
         return nullptr;
     };

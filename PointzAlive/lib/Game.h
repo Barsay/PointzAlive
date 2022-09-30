@@ -84,11 +84,11 @@ public:
 
             std::vector<int> temp = nColors;
 
-            ImGui::SliderInt("Green Balls", &nColors[map::GREEN], 0, MAX_POINT);
+            ImGui::SliderInt("Green Pointz", &nColors[map::GREEN], 0, MAX_POINT);
             ImGui::SliderInt("White Balls", &nColors[map::WHITE], 0, MAX_POINT);
-            ImGui::SliderInt("Cyan Balls", &nColors[map::CYAN], 0, MAX_POINT);
-            ImGui::SliderInt("Blue Balls", &nColors[map::BLUE], 0, MAX_POINT);
-            ImGui::SliderInt("Magenta Balls", &nColors[map::MAGENTA], 0, MAX_POINT);
+            ImGui::SliderInt("Cyan Pointz", &nColors[map::CYAN], 0, MAX_POINT);
+            ImGui::SliderInt("Blue Pointz", &nColors[map::BLUE], 0, MAX_POINT);
+            ImGui::SliderInt("Magenta Pointz", &nColors[map::MAGENTA], 0, MAX_POINT);
             if(ImGui::Button("Randomize Colors")){
                 nColors[map::GREEN] = rand()%MAX_POINT;
                 nColors[map::WHITE]  = rand()%MAX_POINT;
@@ -99,14 +99,19 @@ public:
             onParameterChanged(nColors, temp, myMap ,ballpit::compareColorNumberVectors, ballpit::newColorsRandomPosRandomVel);
         }
         if(selection == LIFE_GAME){
-
-            nColors[map::WHITE]  = 0;
-
             std::vector<int> temp = nColors;
-            ImGui::SliderInt("Green Balls", &nColors[map::GREEN], 0, MAX_POINT);
-            ImGui::SliderInt("Cyan Balls", &nColors[map::CYAN], 0, MAX_POINT);
-            ImGui::SliderInt("Blue Balls", &nColors[map::BLUE], 0, MAX_POINT);
-            ImGui::SliderInt("Magenta Balls", &nColors[map::MAGENTA], 0, MAX_POINT);
+
+            ImGui::Separator();
+            ImGui::SliderInt("Number of different Point type", &ballpit::numberOfTypes, 1, 6);
+            ImGui::Separator();
+            for (int i=0;i<map::colors::COLOR_MAX;i++){
+                if(ballpit::numberOfTypes>i) {
+                    ImGui::SliderInt(to_string(i).c_str(), &nColors[i], 0, MAX_POINT);
+                } else {
+                   nColors[i] = 0;
+                }
+            }
+
             ImGui::Separator();
             ImGui::SliderInt("Number of threads", &myMap->nthreads, 1, 20);
             onParameterChanged(nColors, temp, myMap ,lifeGame::compareColorNumberVectors, lifeGame::newColorsRandomPosRandomVel);
@@ -115,7 +120,7 @@ public:
         if(selection == GRAVITATOR){
             std::vector<int> temp = nColors;
             nColors[map::WHITE]  = 0;
-            ImGui::SliderInt("Number of balls", &nColors[map::GREEN], 0, MAX_POINT);
+            ImGui::SliderInt("Number of Pointz", &nColors[map::GREEN], 0, MAX_POINT);
             if(ImGui::Button("Randomize Colors")){
                 nColors[map::GREEN] = rand()%MAX_POINT;
                 nColors[map::WHITE]  = rand()%MAX_POINT;

@@ -56,6 +56,7 @@ public:
         GREEN,
         MAGENTA,
         WHITE,
+        YELLOW,
         COLOR_MAX
     };
 
@@ -71,7 +72,7 @@ public:
         colorMap[GREEN] = sf::Color::Green;
         colorMap[MAGENTA] = sf::Color::Magenta;
         colorMap[WHITE] = sf::Color::White;
-
+        colorMap[YELLOW] = sf::Color::Yellow;
 
     }
 
