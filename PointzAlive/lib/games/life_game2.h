@@ -6,9 +6,37 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 #include <vector>
-#include "Point.h"
+#include <functional>
+#include "../Point.h"
+#include "../map.h"
+
 
 namespace lifeGame {
+
+
+    static std::function<bool(std::vector<int> &a, std::vector<int> &b)> compareColorNumberVectors = [](std::vector<int> &a, std::vector<int> &b){
+        for (int i=0; i<a.size(); i++) {
+            if (a[i] != b[i]) return true;
+        }
+        return false;
+    };
+
+    static std::function<std::vector<Point>(map *myMap, std::vector<int> &newColors)> newColorsRandomPosRandomVel = [](map *myMap, std::vector<int> &newColors){
+        std::vector<Point> points;
+
+        int totalPoints=0;
+        for(int i=0; i<newColors.size();i++){
+            totalPoints = totalPoints + newColors[i];
+        }
+        points.reserve(totalPoints);
+
+        for (int i=0; i<newColors.size();i++){
+            for (int j=0;j<newColors[i]; j++){
+                points.emplace_back(rand() % myMap->getWidth(),rand() % myMap->getHeight(),(int)rand()%5-2 ,(int)rand()%5-2, myMap->colorMap[i]);
+            }
+        }
+        return points;
+    };
 
     //ciano - Verde attrazione
     //magenta - Blue attrazione
@@ -72,9 +100,7 @@ namespace lifeGame {
         }
     }
 
-
-
-    bool updateVelocity(Point &P, std::vector<Point> &pvector, double vx, double vy) {
+    bool updateVelocity(Point &P, std::vector<Point> &pvector, double vx, double vy){
         double vvx = vx, vvy = vy;
         double distancex, distancey, d, F=0, fx=0, fy=0;
         for (auto &p: pvector) {
@@ -87,16 +113,9 @@ namespace lifeGame {
 
             if(d!=0  && d<150 &&d>2) {
 
-                //d= rad (dx^2+dy^2);
-
                 F = -lifeGame::rule(P, p) * (3) / ((d * d));
                 fx = fx + F * distancex;
                 fy = fy + F * distancey;
-
-                /*            std::cout << "has distancex " << distancex << " distancey " << distancey
-                                      << " F " << F << " fx " << fx << " fy " << fy
-                                      << " vx <<" << vvx << " vy  " << vvy << " with d= " << d << ", F= " << F << std::endl;
-            */
             }
         }
         vvx = (vvx+fx);
@@ -107,6 +126,53 @@ namespace lifeGame {
         return true;
     }
 
+    static std::function<void(map *)> calculate = [](map * myMap) {
 
-}
+        /* TODO: add threads
+        if(myMap->nthreads > 1 && points.size() > myMap->nthreads){
+            std::vector<shared_ptr<std::thread>> threads;
+
+            //divide number of points in equal numbers
+            int total = (int ) points.size()/myMap->nthreads;
+            int resto = points.size()%myMap->nthreads;
+
+            //cout << "total points " << points.size() << " total " <<total<< " resto " << resto <<endl;
+            threads.resize(myMap->nthreads);
+
+            int start=0, stop =total-1;
+            for (int i=0; i<myMap->nthreads;i++){
+                //last iteration add resto. this will result in a longer last vector but ok for now
+                if (i==myMap->nthreads-1){
+                    stop = points.size()-1;
+                }
+
+                threads[i]= make_shared<std::thread>([](int start, int stop, vector<Point> &pointsVector, map * myMap){
+
+                    //cout << "heh tread" <<endl;
+
+                    for (int i=start; i<=stop;i++){
+                        lifeGame::updateVelocity(const_cast<Point &>(myMap->getPoints()[i]), pointsVector, myMap->getPoints()[i].getVelocity()[0], myMap->getPoints()[i].getVelocity()[1]);
+
+                    }
+                },start, stop, points, myMap );
+
+                start =stop+1;
+                stop +=total;
+            }
+
+            int i =0;
+            for(auto &thread : threads ){
+                thread->join();
+                //cout <<"stopped thread " << i<<endl;
+                i++;
+            }
+        } else{ */
+        for (auto &p: myMap->points) {
+            lifeGame::updateVelocity(p, myMap->points, p.getVelocity()[0], p.getVelocity()[1]);
+        }
+        /*} */
+    };
+};
+
+
 #endif //PROGRAMNAMEEXAMPLE_LIFE_GAME_H
