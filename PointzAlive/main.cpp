@@ -7,7 +7,7 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 #include "lib/Point.h"
-#include "lib/map.h"
+#include "lib/Space.h"
 #include "lib/Game.h"
 
 int main(){
@@ -17,7 +17,7 @@ int main(){
     ImGui::SFML::Init(window);
 
 
-    map demoMap(&window,true);
+    Space demoMap(&window, true);
     Game myGame(&demoMap);
     sf::Clock deltaClock;
 

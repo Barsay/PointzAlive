@@ -11,7 +11,7 @@
 #include <SFML/Window/Event.hpp>
 #include <utility>
 #include "Point.h"
-#include "map.h"
+#include "Space.h"
 #include "games/nogame.h"
 #include "games/gravitator2.h"
 #include "games/life_game2.h"
@@ -23,14 +23,14 @@ class Game {
 
 private:
     int selection;
-    map *myMap;
+    Space *myMap;
     vector<int> nColors;
     std::function<bool(int &, int &)> hasSelectionChanged;
 
 public:
-    Game(map *map): selection(NOGAME), myMap(map), hasSelectionChanged([](int &a, int &b){return a != b;}){
+    Game(Space *map): selection(NOGAME), myMap(map), hasSelectionChanged([](int &a, int &b){return a != b;}){
 
-        nColors.resize(map::COLOR_MAX);
+        nColors.resize(Space::COLOR_MAX);
 
     }
 
@@ -84,17 +84,17 @@ public:
 
             std::vector<int> temp = nColors;
 
-            ImGui::SliderInt("Green Pointz", &nColors[map::GREEN], 0, MAX_POINT);
-            ImGui::SliderInt("White Balls", &nColors[map::WHITE], 0, MAX_POINT);
-            ImGui::SliderInt("Cyan Pointz", &nColors[map::CYAN], 0, MAX_POINT);
-            ImGui::SliderInt("Blue Pointz", &nColors[map::BLUE], 0, MAX_POINT);
-            ImGui::SliderInt("Magenta Pointz", &nColors[map::MAGENTA], 0, MAX_POINT);
+            ImGui::SliderInt("Green Pointz", &nColors[Space::GREEN], 0, MAX_POINT);
+            ImGui::SliderInt("White Balls", &nColors[Space::WHITE], 0, MAX_POINT);
+            ImGui::SliderInt("Cyan Pointz", &nColors[Space::CYAN], 0, MAX_POINT);
+            ImGui::SliderInt("Blue Pointz", &nColors[Space::BLUE], 0, MAX_POINT);
+            ImGui::SliderInt("Magenta Pointz", &nColors[Space::MAGENTA], 0, MAX_POINT);
             if(ImGui::Button("Randomize Colors")){
-                nColors[map::GREEN] = rand()%MAX_POINT;
-                nColors[map::WHITE]  = rand()%MAX_POINT;
-                nColors[map::CYAN] = rand()%MAX_POINT;
-                nColors[map::BLUE] = rand()%MAX_POINT;
-                nColors[map::MAGENTA] = rand()%MAX_POINT;
+                nColors[Space::GREEN] = rand() % MAX_POINT;
+                nColors[Space::WHITE]  = rand() % MAX_POINT;
+                nColors[Space::CYAN] = rand() % MAX_POINT;
+                nColors[Space::BLUE] = rand() % MAX_POINT;
+                nColors[Space::MAGENTA] = rand() % MAX_POINT;
             };
             onParameterChanged(nColors, temp, myMap ,ballpit::compareColorNumberVectors, ballpit::newColorsRandomPosRandomVel);
         }
@@ -102,16 +102,23 @@ public:
             std::vector<int> temp = nColors;
 
             ImGui::Separator();
-            ImGui::SliderInt("Number of different Point type", &ballpit::numberOfTypes, 1, 6);
+            ImGui::SliderInt("Number of different Point type", &lifeGame::numberOfTypes, 1, 6);
             ImGui::Separator();
-            for (int i=0;i<map::colors::COLOR_MAX;i++){
-                if(ballpit::numberOfTypes>i) {
+
+            for (int i=0; i < Space::colors::COLOR_MAX; i++){
+                if(lifeGame::numberOfTypes>i) {
                     ImGui::SliderInt(to_string(i).c_str(), &nColors[i], 0, MAX_POINT);
                 } else {
                    nColors[i] = 0;
                 }
             }
-
+            ImGui::Separator();
+                for(int i=0;i<lifeGame::numberOfTypes;i++){
+                    for(int j=0;j<lifeGame::numberOfTypes;j++){
+                        ImGui::SliderFloat(string(to_string(i) + " -> " +to_string(j)).c_str(), &lifeGame::rules[i][j],-5.0, +5.0, "%.3f");
+                        //cout << lifeGame::rules[i][j]<<endl;
+                    }
+                }
             ImGui::Separator();
             ImGui::SliderInt("Number of threads", &myMap->nthreads, 1, 20);
             onParameterChanged(nColors, temp, myMap ,lifeGame::compareColorNumberVectors, lifeGame::newColorsRandomPosRandomVel);
@@ -119,14 +126,14 @@ public:
         }
         if(selection == GRAVITATOR){
             std::vector<int> temp = nColors;
-            nColors[map::WHITE]  = 0;
-            ImGui::SliderInt("Number of Pointz", &nColors[map::GREEN], 0, MAX_POINT);
+            nColors[Space::WHITE]  = 0;
+            ImGui::SliderInt("Number of Pointz", &nColors[Space::GREEN], 0, MAX_POINT);
             if(ImGui::Button("Randomize Colors")){
-                nColors[map::GREEN] = rand()%MAX_POINT;
-                nColors[map::WHITE]  = rand()%MAX_POINT;
-                nColors[map::CYAN] = rand()%MAX_POINT;
-                nColors[map::BLUE] = rand()%MAX_POINT;
-                nColors[map::MAGENTA] = rand()%MAX_POINT;
+                nColors[Space::GREEN] = rand() % MAX_POINT;
+                nColors[Space::WHITE]  = rand() % MAX_POINT;
+                nColors[Space::CYAN] = rand() % MAX_POINT;
+                nColors[Space::BLUE] = rand() % MAX_POINT;
+                nColors[Space::MAGENTA] = rand() % MAX_POINT;
             }
             onParameterChanged(nColors, temp, myMap ,gravitator::compareColorNumberVectors, gravitator::newColorsRandomPosRandomVel);
         }
@@ -145,7 +152,7 @@ public:
     };
 
     template<class T>
-    void onParameterChanged( T & newParam, T & oldParam, map *someMap, std::function<bool(T &, T & )> compareFn, std::function<std::vector<Point>(map *, T &)> fn){
+    void onParameterChanged(T & newParam, T & oldParam, Space *someMap, std::function<bool(T &, T & )> compareFn, std::function<std::vector<Point>(Space *, T &)> fn){
         if (compareFn(newParam, oldParam)){
             myMap->init(fn(someMap, newParam));
         }

@@ -13,13 +13,12 @@
 
 using namespace std;
 
-class map {
+class Space {
 private:
     int height;
     int width;
     sf::RenderWindow *graphicwindow;
     bool debug;
-    int game;
 
     void checkbound(Point &point){
         //if left bound touched (x=0)
@@ -60,7 +59,7 @@ public:
         COLOR_MAX
     };
 
-    map(sf::RenderWindow * window, bool debug): graphicwindow(window), debug(debug), nthreads(4){
+    Space(sf::RenderWindow * window, bool debug): graphicwindow(window), debug(debug), nthreads(4){
         height= graphicwindow->getSize().y;
         width= graphicwindow->getSize().x;
         points.reserve(0);
@@ -76,7 +75,7 @@ public:
 
     }
 
-    void update( std::function<void(map *)> fn){
+    void update( std::function<void(Space *)> fn){
         fn(this);
         for (auto &point: points) {
             checkbound(point);

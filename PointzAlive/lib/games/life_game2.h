@@ -8,11 +8,13 @@
 #include <vector>
 #include <functional>
 #include "../Point.h"
-#include "../map.h"
+#include "../Space.h"
+#include <map>
 
 
 namespace lifeGame {
 
+    static int numberOfTypes = 4;
 
     static std::function<bool(std::vector<int> &a, std::vector<int> &b)> compareColorNumberVectors = [](std::vector<int> &a, std::vector<int> &b){
         for (int i=0; i<a.size(); i++) {
@@ -21,7 +23,7 @@ namespace lifeGame {
         return false;
     };
 
-    static std::function<std::vector<Point>(map *myMap, std::vector<int> &newColors)> newColorsRandomPosRandomVel = [](map *myMap, std::vector<int> &newColors){
+    static std::function<std::vector<Point>(Space *myMap, std::vector<int> &newColors)> newColorsRandomPosRandomVel = [](Space *myMap, std::vector<int> &newColors){
         std::vector<Point> points;
 
         int totalPoints=0;
@@ -32,14 +34,24 @@ namespace lifeGame {
 
         for (int i=0; i<newColors.size();i++){
             for (int j=0;j<newColors[i]; j++){
-                points.emplace_back(rand() % myMap->getWidth(),rand() % myMap->getHeight(),(int)rand()%5-2 ,(int)rand()%5-2, myMap->colorMap[i]);
+                points.emplace_back(rand() % myMap->getWidth(),rand() % myMap->getHeight(),(int)rand()%5-2 ,(int)rand()%5-2, std::pair<int, sf::Color>(i, myMap->colorMap[i]));
             }
         }
         return points;
     };
 
+    static std::vector<std::vector<float>> rules = {
+            {-0.3,+0.3,0.8,-1,+0.5,-0.5},
+            {-0.5,-0.3,+0.3,0.8,-1,+0.5},
+            {+0.5,-0.5,-0.3,+0.3,0.8,-1},
+            {-1,+0.5,-0.5,-0.3,+0.3,0.8},
+            {0.8,-1,+0.5,-0.5,-0.3,+0.3},
+            {+0.3,0.8,-1,+0.5,-0.5,-0.3}
+    };
+
     //ciano - Verde attrazione
     //magenta - Blue attrazione
+    /*
     float rule(Point &p1, Point &p2){
         if (p1.getColor()==sf::Color::Cyan){
             if (p2.getColor()==sf::Color::Cyan){
@@ -99,7 +111,7 @@ namespace lifeGame {
             }
         }
     }
-
+*/
     bool updateVelocity(Point &P, std::vector<Point> &pvector, double vx, double vy){
         double vvx = vx, vvy = vy;
         double distancex, distancey, d, F=0, fx=0, fy=0;
@@ -113,7 +125,9 @@ namespace lifeGame {
 
             if(d!=0  && d<150 &&d>2) {
 
-                F = -lifeGame::rule(P, p) * (3) / ((d * d));
+                F = -lifeGame::rules[P.getColor().first][p.getColor().first]* (3) / ((d * d));
+                //std::cout << "F = " << F <<endl;
+               // F = -lifeGame::rule(P, p) * (3) / ((d * d));
                 fx = fx + F * distancex;
                 fy = fy + F * distancey;
             }
@@ -126,15 +140,14 @@ namespace lifeGame {
         return true;
     }
 
-    static std::function<void(map *)> calculate = [](map * myMap) {
+    static std::function<void(Space *)> calculate = [](Space * myMap) {
 
-        /* TODO: add threads
-        if(myMap->nthreads > 1 && points.size() > myMap->nthreads){
+        if(myMap->nthreads > 1 && myMap->points.size() > myMap->nthreads){
             std::vector<shared_ptr<std::thread>> threads;
 
             //divide number of points in equal numbers
-            int total = (int ) points.size()/myMap->nthreads;
-            int resto = points.size()%myMap->nthreads;
+            int total = (int ) myMap->points.size()/myMap->nthreads;
+            int resto = myMap->points.size()%myMap->nthreads;
 
             //cout << "total points " << points.size() << " total " <<total<< " resto " << resto <<endl;
             threads.resize(myMap->nthreads);
@@ -143,34 +156,32 @@ namespace lifeGame {
             for (int i=0; i<myMap->nthreads;i++){
                 //last iteration add resto. this will result in a longer last vector but ok for now
                 if (i==myMap->nthreads-1){
-                    stop = points.size()-1;
+                    stop = myMap->points.size()-1;
                 }
 
-                threads[i]= make_shared<std::thread>([](int start, int stop, vector<Point> &pointsVector, map * myMap){
+                threads[i]= make_shared<std::thread>([](int start, int stop, vector<Point> &pointsVector, Space * mySpace){
 
                     //cout << "heh tread" <<endl;
 
-                    for (int i=start; i<=stop;i++){
-                        lifeGame::updateVelocity(const_cast<Point &>(myMap->getPoints()[i]), pointsVector, myMap->getPoints()[i].getVelocity()[0], myMap->getPoints()[i].getVelocity()[1]);
-
+                    for (int j=start; j<=stop;j++){
+                        lifeGame::updateVelocity(mySpace->points[j], mySpace->points, mySpace->points[j].getVelocity()[0], mySpace->points[j].getVelocity()[1]);
                     }
-                },start, stop, points, myMap );
+                },start, stop, myMap->points, myMap );
 
                 start =stop+1;
                 stop +=total;
             }
 
-            int i =0;
+            int k =0;
             for(auto &thread : threads ){
                 thread->join();
-                //cout <<"stopped thread " << i<<endl;
-                i++;
+                k++;
             }
-        } else{ */
+        } else{
         for (auto &p: myMap->points) {
             lifeGame::updateVelocity(p, myMap->points, p.getVelocity()[0], p.getVelocity()[1]);
         }
-        /*} */
+        }
     };
 };
 

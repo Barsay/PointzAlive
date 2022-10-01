@@ -14,7 +14,7 @@
 
 namespace nogame{
 
-    static std::function<std::vector<Point>(map *, int & )> init = [](map *myMap, int &a){
+    static std::function<std::vector<Point>(Space *, int & )> init = [](Space *myMap, int &a){
         std::vector<Point> v;
         return v;
     };

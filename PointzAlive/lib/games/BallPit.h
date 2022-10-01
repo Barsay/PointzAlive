@@ -7,7 +7,7 @@
 #include <SFML/Window/Event.hpp>
 #include <vector>
 #include "../Point.h"
-#include "../map.h"
+#include "../Space.h"
 
 namespace ballpit {
 
@@ -24,7 +24,7 @@ namespace ballpit {
         return false;
     };
 
-    static std::function<std::vector<Point>(map *myMap, std::vector<int> &newColors)> newColorsRandomPosRandomVel = [](map *myMap, std::vector<int> &newColors){
+    static std::function<std::vector<Point>(Space *myMap, std::vector<int> &newColors)> newColorsRandomPosRandomVel = [](Space *myMap, std::vector<int> &newColors){
         std::vector<Point> points;
 
         int totalPoints=0;
@@ -35,13 +35,13 @@ namespace ballpit {
 
         for (int i=0; i<newColors.size();i++){
             for (int j=0;j<newColors[i]; j++){
-                points.emplace_back(rand() % myMap->getWidth(),rand() % myMap->getHeight(),(int)rand()%5-2 ,(int)rand()%5-2, myMap->colorMap[i]);
+                points.emplace_back(rand() % myMap->getWidth(),rand() % myMap->getHeight(),(int)rand()%5-2 ,(int)rand()%5-2, std::pair<int, sf::Color>(i, myMap->colorMap[i]));
             }
         }
         return points;
     };
 
-    static std::function<void(map *)> calculate = [](map *){
+    static std::function<void(Space *)> calculate = [](Space *){
         return;
     };
 

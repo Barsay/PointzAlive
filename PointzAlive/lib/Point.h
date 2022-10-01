@@ -15,14 +15,14 @@ private:
     sf::CircleShape shape;
     std::vector<float> position;
     std::vector<float> velocity;
-    sf::Color color;
+    std::pair<int, sf::Color> color;
     float mass;
 public:
     //constructor
-    Point(float x, float y, float velx, float vely, sf::Color color):position({x,y}),velocity({velx, vely}),shape(3.f), color(color){
+    Point(float x, float y, float velx, float vely, std::pair<int, sf::Color> color):position({x,y}),velocity({velx, vely}),shape(3.f), color(color){
         shape.setPosition(position[0],position[1]);
         position.resize(5);
-        shape.setFillColor(color);
+        shape.setFillColor(color.second);
 };
     void move(){
         position[0]=position[0]+velocity[0];
@@ -52,7 +52,7 @@ public:
         Point::velocity = vel;
     }
 
-    const sf::Color &getColor() const {
+    std::pair<int, sf::Color> &getColor() {
         return color;
     }
 
@@ -64,7 +64,7 @@ public:
         Point::shape = shape;
     }
 
-    void setColor(const sf::Color &color) {
+    void setColor(const std::pair<int, sf::Color> &color) {
         Point::color = color;
     }
 
