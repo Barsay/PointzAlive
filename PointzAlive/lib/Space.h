@@ -50,12 +50,12 @@ public:
     std::vector<Point> points;
 
     enum colors{
-        BLUE,
-        CYAN,
-        GREEN,
-        MAGENTA,
-        WHITE,
-        YELLOW,
+        FIRST,
+        SECOND,
+        THIRD,
+        FORTH,
+        FIFTH,
+        SIXTH,
         COLOR_MAX
     };
 
@@ -66,12 +66,13 @@ public:
 
         //init ColorMap
         colorMap.resize(COLOR_MAX);
-        colorMap[BLUE] = sf::Color::Blue;
-        colorMap[CYAN] = sf::Color::Cyan;
-        colorMap[GREEN] = sf::Color::Green;
-        colorMap[MAGENTA] = sf::Color::Magenta;
-        colorMap[WHITE] = sf::Color::White;
-        colorMap[YELLOW] = sf::Color::Yellow;
+
+        colorMap[FIRST] = sf::Color::Blue;
+        colorMap[SECOND] = sf::Color::Cyan;
+        colorMap[THIRD] = sf::Color::Green;
+        colorMap[FORTH] = sf::Color::Magenta;
+        colorMap[FIFTH] = sf::Color::White;
+        colorMap[SIXTH] = sf::Color::Yellow;
 
     }
 

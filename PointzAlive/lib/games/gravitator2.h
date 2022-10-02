@@ -75,6 +75,7 @@ namespace gravitator{
             gravitator::updateVelocity(point, point.getVelocity()[0],point.getVelocity()[1]);
         }
     };
+
 }
 
 

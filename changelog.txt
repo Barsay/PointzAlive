@@ -1,0 +1,4 @@
+v0.0.3
+-> LifeGame: randomize colors
+-> LifeGame: added gravitator (not working yet)
+-> LifeGame: user can choose ballz color.

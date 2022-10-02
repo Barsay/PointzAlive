@@ -1,7 +1,7 @@
 #include "imgui.h" // necessary for ImGui::*, imgui-SFML.h doesn't include imgui.h
 
 #include "imgui-SFML.h" // for ImGui::SFML::* functions and SFML-specific overloads
-
+#include "imgui_internal.h"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
@@ -39,8 +39,8 @@ int main(){
         myGame.step();
         demoMap.show();
 
-
         //------------------//
+
         ImGui::SFML::Render(window);
         window.display();
 

@@ -76,6 +76,12 @@ public:
         Point::mass = mass;
     }
 
+    void setRGBColor(const ImVec4 col){
+        //sf::Color c(ImGui::ColorConvertFloat4ToU32(col));
+        shape.setFillColor(sf::Color((int)(col.x*255), (int)(col.y*255),(int)(col.z*255),(int)(col.w*255)));
+    }
+
+
 };
 
 
