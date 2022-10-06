@@ -27,7 +27,6 @@ int main(){
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
             if (event.type == sf::Event::Closed) {
-
                 window.close();
             }
         }

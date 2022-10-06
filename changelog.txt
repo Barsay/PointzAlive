@@ -1,4 +1,7 @@
-v0.0.3
+v0.0.3 - LifeGame Color Update
+
 -> LifeGame: randomize colors
--> LifeGame: added gravitator (not working yet)
+-> LifeGame: added gravitator
 -> LifeGame: user can choose ballz color.
+-> LifeGame: Added Arrows to visualize forces
+-> LifeGame: Added save feature (TODO)

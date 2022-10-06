@@ -103,12 +103,16 @@ public:
 
             ImGui::Separator();
             ImGui::SliderInt("Number of different Point type", &lifeGame::numberOfTypes, 1, 6);
-            ImGui::Separator();
-            //-----COLOR SETTINGS -----//
             ImDrawList* draw_list = ImGui::GetWindowDrawList();
+            ImGui::Separator();
+
+            lifeGame::graphics::showRule(lifeGame::numberOfTypes, draw_list, 400, 400);
+
+            ImGui::Separator();
+
+
             static float sz = 36.0f;
-            const ImVec2 p = ImGui::GetCursorScreenPos();
-            float x = p.x + 4.0f, y = p.y + 4.0f, spacing = 8.0f;
+            float x = 1, y=1;
 
             for (int type=0; type < Space::colors::COLOR_MAX; type++){
 
@@ -117,31 +121,36 @@ public:
                     ImGui::Separator();
                     ImGui::Text(std::string("Pointz" +to_string(type)).c_str(),type);
                     ImGui::SliderInt(std::string("Amount " +to_string(type)).c_str(), &nColors[type], 0, MAX_POINT);
-                    ImGui::ColorEdit3(std::string("Color " +to_string(type)).c_str(), lifeGame::rgbwMap[type]);
-                   // myMap->colorMap[i].r = (int)lifeGame::rgbwMap[i][0];
-                    //myMap->colorMap[i].g = (int)lifeGame::rgbwMap[i][1];
-                    //myMap->colorMap[i].b = (int)lifeGame::rgbwMap[i][2];
-                    //myMap->colorMap[i].a = (int)lifeGame::rgbwMap[i][3];
-                    //change colors
-                    for (auto &point: myMap->points) {
-                        if(point.getColor().first==type){
-                            point.setRGBColor(ImVec4(lifeGame::rgbwMap[type][0],lifeGame::rgbwMap[type][1],lifeGame::rgbwMap[type][2],lifeGame::rgbwMap[type][3]));
-                        }
-                    }
 
-                    //draw_list->AddCircle(ImVec2(x+sz*0.5f, y+sz*0.5f), sz*0.5f, col32, 6); x += sz+spacing;  y += sz+spacing;
+                    //-----COLOR SETTINGS -----//
+                    if(ImGui::ColorEdit3(std::string("Color " +to_string(type)).c_str(), lifeGame::rgbwMap[type],1)){
+                        for (auto &point: myMap->points) {
+                            if(point.getColor().first==type){
+                                point.setRGBColor(ImVec4(lifeGame::rgbwMap[type][0],lifeGame::rgbwMap[type][1],lifeGame::rgbwMap[type][2],lifeGame::rgbwMap[type][3]));
+                            }
+                        }
+                    };
 
                     for(int j=0;j<lifeGame::numberOfTypes;j++){
-                        ImGui::SliderFloat(string(to_string(type) + " -> " +to_string(j)).c_str(), &lifeGame::rules[type][j],-100.0, +100.0, "%.3f");
-                        //cout << lifeGame::rules[i][j]<<endl;
+                        ImColor col = lifeGame::ruleToColor(lifeGame::rules[type][j]);
+                        ImGui::SliderFloat(string(to_string(type) + " -> " +to_string(j)).c_str(), &lifeGame::rules[type][j],lifeGame::rule_MaxAttraction, lifeGame::rule_MaxRepulsion, "%.3f");
+                        ImGui::SameLine();
+
+                        draw_list->AddCircleFilled(ImVec2(ImGui::GetCursorScreenPos().x+5, ImGui::GetCursorScreenPos().y+10), 7, ImColor(lifeGame::rgbwMap[type][0],lifeGame::rgbwMap[type][1],lifeGame::rgbwMap[type][2],lifeGame::rgbwMap[type][3]), 20);
+
+                        draw_list->AddLine(ImVec2(ImGui::GetCursorScreenPos().x+15, ImGui::GetCursorScreenPos().y+10), ImVec2(ImGui::GetCursorScreenPos().x+80, ImGui::GetCursorScreenPos().y+10), col,5 );
+                        draw_list->AddTriangleFilled(ImVec2(ImGui::GetCursorScreenPos().x+80, ImGui::GetCursorScreenPos().y+15),ImVec2(ImGui::GetCursorScreenPos().x+80, ImGui::GetCursorScreenPos().y+5),ImVec2(ImGui::GetCursorScreenPos().x+90, ImGui::GetCursorScreenPos().y+10),col);
+                        draw_list->AddCircleFilled(ImVec2(ImGui::GetCursorScreenPos().x+100, ImGui::GetCursorScreenPos().y+10), 7, ImColor(lifeGame::rgbwMap[j][0],lifeGame::rgbwMap[j][1],lifeGame::rgbwMap[j][2],lifeGame::rgbwMap[j][3]), 20);
+                        ImGui::NewLine();
                     }
+
+
                 } else {
                    nColors[type] = 0;
                 }
             }
 
-            ImGui::Separator();
-            ImGui::Separator();
+
             if(ImGui::Button("Randomize forces")){
                 for(int i=0;i<lifeGame::numberOfTypes;i++){
                     for(int j=0;j<lifeGame::numberOfTypes;j++){
