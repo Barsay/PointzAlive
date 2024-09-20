@@ -325,28 +325,27 @@ namespace lifeGame {
 
 
                 //Arrowz
-                cout << "C0:"<<endl;
+
                 //0->1
                 arrow(draw_list,c0,c1, lifeGame::ruleToColor(lifeGame::rules[0][1]), M_PI*1/12,+5);
                 //0->2
                 arrow(draw_list,c0,c2, lifeGame::ruleToColor(lifeGame::rules[0][2]),M_PI*1/12,5);
                 //0->3
                 arrow(draw_list,c0,c3, lifeGame::ruleToColor(lifeGame::rules[0][3]),M_PI*1/12,5);
-                cout << "C1:"<<endl;
+
                 //1->0
                 arrow(draw_list,c1,c0, lifeGame::ruleToColor(lifeGame::rules[1][0]),M_PI*1/12, 5);
                 //1->2
                 arrow(draw_list,c1,c2, lifeGame::ruleToColor(lifeGame::rules[1][2]),M_PI*1/12, 5);
                 //1->3
                 arrow(draw_list,c1,c3, lifeGame::ruleToColor(lifeGame::rules[1][3]),M_PI*1/12,5);
-                cout << "C2:"<<endl;
+
                 //2->0
                 arrow(draw_list,c2,c0, lifeGame::ruleToColor(lifeGame::rules[2][0]),M_PI*1/12, 5);
                 //2->1
                 arrow(draw_list,c2,c1, lifeGame::ruleToColor(lifeGame::rules[2][1]),M_PI*1/12, 5);
                 //2->3
                 arrow(draw_list,c2,c3, lifeGame::ruleToColor(lifeGame::rules[2][3]),M_PI*1/12,5);
-                cout << "C3:"<<endl;
                 //3->0
                 arrow(draw_list,c3,c0, lifeGame::ruleToColor(lifeGame::rules[3][0]),M_PI*1/12,5);
                 //3->1
@@ -371,11 +370,55 @@ namespace lifeGame {
                 c4.radius = 20;
 
                 //Pointz
-                lifeGame::graphics::pointWithForce(draw_list,c0.center,c0.radius,ImColor(lifeGame::rgbwMap[0][0], lifeGame::rgbwMap[0][1],lifeGame::rgbwMap[0][2], lifeGame::rgbwMap[0][3]),-M_PI*1/4, lifeGame::ruleToColor(lifeGame::rules[0][0]));
-                lifeGame::graphics::pointWithForce(draw_list,c1.center,c1.radius,ImColor(lifeGame::rgbwMap[1][0], lifeGame::rgbwMap[1][1],lifeGame::rgbwMap[1][2], lifeGame::rgbwMap[1][3]),M_PI*1/4, lifeGame::ruleToColor(lifeGame::rules[1][1]));
-                lifeGame::graphics::pointWithForce(draw_list,c2.center,c2.radius,ImColor(lifeGame::rgbwMap[2][0], lifeGame::rgbwMap[2][1],lifeGame::rgbwMap[2][2], lifeGame::rgbwMap[2][3]),M_PI*5/4, lifeGame::ruleToColor(lifeGame::rules[2][2]));
-                lifeGame::graphics::pointWithForce(draw_list,c3.center,c3.radius,ImColor(lifeGame::rgbwMap[3][0], lifeGame::rgbwMap[3][1],lifeGame::rgbwMap[3][2], lifeGame::rgbwMap[3][3]),M_PI*3/4, lifeGame::ruleToColor(lifeGame::rules[3][3]));
-                lifeGame::graphics::pointWithForce(draw_list,c4.center,c4.radius,ImColor(lifeGame::rgbwMap[4][0], lifeGame::rgbwMap[4][1],lifeGame::rgbwMap[4][2], lifeGame::rgbwMap[4][3]),M_PI*3/4, lifeGame::ruleToColor(lifeGame::rules[4][4]));
+                lifeGame::graphics::pointWithForce(draw_list,c0.center,c0.radius,ImColor(lifeGame::rgbwMap[0][0], lifeGame::rgbwMap[0][1],lifeGame::rgbwMap[0][2], lifeGame::rgbwMap[0][3]),2*M_PI*0/5, lifeGame::ruleToColor(lifeGame::rules[0][0]));
+                lifeGame::graphics::pointWithForce(draw_list,c1.center,c1.radius,ImColor(lifeGame::rgbwMap[1][0], lifeGame::rgbwMap[1][1],lifeGame::rgbwMap[1][2], lifeGame::rgbwMap[1][3]),2*M_PI*1/5, lifeGame::ruleToColor(lifeGame::rules[1][1]));
+                lifeGame::graphics::pointWithForce(draw_list,c2.center,c2.radius,ImColor(lifeGame::rgbwMap[2][0], lifeGame::rgbwMap[2][1],lifeGame::rgbwMap[2][2], lifeGame::rgbwMap[2][3]),2*M_PI*2/5, lifeGame::ruleToColor(lifeGame::rules[2][2]));
+                lifeGame::graphics::pointWithForce(draw_list,c3.center,c3.radius,ImColor(lifeGame::rgbwMap[3][0], lifeGame::rgbwMap[3][1],lifeGame::rgbwMap[3][2], lifeGame::rgbwMap[3][3]),2*M_PI*3/5, lifeGame::ruleToColor(lifeGame::rules[3][3]));
+                lifeGame::graphics::pointWithForce(draw_list,c4.center,c4.radius,ImColor(lifeGame::rgbwMap[4][0], lifeGame::rgbwMap[4][1],lifeGame::rgbwMap[4][2], lifeGame::rgbwMap[4][3]),2*M_PI*4/5, lifeGame::ruleToColor(lifeGame::rules[4][4]));
+
+                //Arrowz
+                //0->1
+                arrow(draw_list,c0,c1, lifeGame::ruleToColor(lifeGame::rules[0][1]), M_PI*1/12,+5);
+                //0->2
+                arrow(draw_list,c0,c2, lifeGame::ruleToColor(lifeGame::rules[0][2]),M_PI*1/12,5);
+                //0->3
+                arrow(draw_list,c0,c3, lifeGame::ruleToColor(lifeGame::rules[0][3]),M_PI*1/12,5);
+                //0->4
+                arrow(draw_list,c0,c4, lifeGame::ruleToColor(lifeGame::rules[0][4]),M_PI*1/12,5);
+                //1->0
+                arrow(draw_list,c1,c0, lifeGame::ruleToColor(lifeGame::rules[1][0]),M_PI*1/12, 5);
+                //1->2
+                arrow(draw_list,c1,c2, lifeGame::ruleToColor(lifeGame::rules[1][2]),M_PI*1/12, 5);
+                //1->3
+                arrow(draw_list,c1,c3, lifeGame::ruleToColor(lifeGame::rules[1][3]),M_PI*1/12,5);
+                //1->4
+                arrow(draw_list,c1,c4, lifeGame::ruleToColor(lifeGame::rules[1][4]),M_PI*1/12,5);
+
+                //2->0
+                arrow(draw_list,c2,c0, lifeGame::ruleToColor(lifeGame::rules[2][0]),M_PI*1/12, 5);
+                //2->1
+                arrow(draw_list,c2,c1, lifeGame::ruleToColor(lifeGame::rules[2][1]),M_PI*1/12, 5);
+                //2->3
+                arrow(draw_list,c2,c3, lifeGame::ruleToColor(lifeGame::rules[2][3]),M_PI*1/12,5);
+                //2->4
+                arrow(draw_list,c2,c4, lifeGame::ruleToColor(lifeGame::rules[2][4]),M_PI*1/12,5);
+                //3->0
+                arrow(draw_list,c3,c0, lifeGame::ruleToColor(lifeGame::rules[3][0]),M_PI*1/12,5);
+                //3->1
+                arrow(draw_list,c3,c1, lifeGame::ruleToColor(lifeGame::rules[3][1]),M_PI*1/12,5);
+                //3->2
+                arrow(draw_list,c3,c2, lifeGame::ruleToColor(lifeGame::rules[3][2]),M_PI*1/12,5);
+                //3->4
+                arrow(draw_list,c3,c4, lifeGame::ruleToColor(lifeGame::rules[3][4]),M_PI*1/12,5);
+                //4->0
+                arrow(draw_list,c4,c0, lifeGame::ruleToColor(lifeGame::rules[4][0]),M_PI*1/12,5);
+                //4>1
+                arrow(draw_list,c4,c1, lifeGame::ruleToColor(lifeGame::rules[4][1]),M_PI*1/12,5);
+                //4->2
+                arrow(draw_list,c4,c2, lifeGame::ruleToColor(lifeGame::rules[4][2]),M_PI*1/12,5);
+                //4>3
+                arrow(draw_list,c3,c4, lifeGame::ruleToColor(lifeGame::rules[4][3]),M_PI*1/12,5);
+
 
 
             }

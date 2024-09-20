@@ -29,9 +29,7 @@ private:
 
 public:
     Game(Space *map): selection(NOGAME), myMap(map), hasSelectionChanged([](int &a, int &b){return a != b;}){
-
         nColors.resize(Space::COLOR_MAX);
-
     }
 
     void ShowGameSettings(){

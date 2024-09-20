@@ -81,7 +81,6 @@ public:
         shape.setFillColor(sf::Color((int)(col.x*255), (int)(col.y*255),(int)(col.z*255),(int)(col.w*255)));
     }
 
-
 };
 
 

@@ -16,11 +16,9 @@ int main(){
     window.setFramerateLimit(60);
     ImGui::SFML::Init(window);
 
-
     Space demoMap(&window, true);
     Game myGame(&demoMap);
     sf::Clock deltaClock;
-
 
     while (window.isOpen()) {
         sf::Event event;
