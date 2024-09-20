@@ -9,6 +9,7 @@
 #include <vector>
 #include "Point.h"
 #include <thread>
+#include <functional>
 
 
 using namespace std;

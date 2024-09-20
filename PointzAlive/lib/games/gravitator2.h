@@ -9,6 +9,7 @@
 #include "../Space.h"
 #include "../Point.h"
 #include <thread>
+#include <functional>
 
 namespace gravitator{
 
