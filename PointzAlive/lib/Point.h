@@ -35,7 +35,6 @@ public:
         window->draw(shape);
     }
 
-
     const std::vector<float> &getPosition() const {
         return position;
     }

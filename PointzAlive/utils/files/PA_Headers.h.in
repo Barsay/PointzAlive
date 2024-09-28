@@ -1,0 +1,10 @@
+#ifndef PA_SELECTION_ENUM
+#define PA_SELECTION_ENUM
+
+enum PA_SELECTION {
+    @pa_subproject_selection@
+    PA_SELECTION_NUM
+};
+
+#endif // PA_SELECTION_ENUM
+

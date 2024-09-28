@@ -1,0 +1,7 @@
+#ifndef PA_MENU_SELECTION
+#define PA_MENU_SELECTION
+
+# define PA_SHOWSELECTIONMENU \
+    @pa_game_selection@
+
+#endif

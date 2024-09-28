@@ -1,14 +1,12 @@
 #include "imgui.h" // necessary for ImGui::*, imgui-SFML.h doesn't include imgui.h
 
 #include "imgui-SFML.h" // for ImGui::SFML::* functions and SFML-specific overloads
-#include "imgui_internal.h"
-#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 #include "lib/Point.h"
 #include "lib/Space.h"
-#include "lib/Game.h"
+#include "lib/pointzalive_core.h"
 
 int main(){
     //create window
@@ -17,7 +15,8 @@ int main(){
     ImGui::SFML::Init(window);
 
     Space demoMap(&window, true);
-    Game myGame(&demoMap);
+    pointzalive_core myGame(&demoMap);
+
     sf::Clock deltaClock;
 
     while (window.isOpen()) {

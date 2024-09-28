@@ -30,7 +30,6 @@ private:
         if( point.getPosition()[0]>=width-1 ){
             point.setPosition({(float)width-1,point.getPosition()[1]});
             point.setVelocity({-point.getVelocity()[0],point.getVelocity()[1]});
-
         }
         //if right bound touched (x=widht)
         if(point.getPosition()[1]<=0 ){
@@ -85,7 +84,6 @@ public:
         }
 
     }
-
 
     /**
      * Inits the points vector inside map.

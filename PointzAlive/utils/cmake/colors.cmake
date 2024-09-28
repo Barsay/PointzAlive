@@ -1,0 +1,23 @@
+
+
+if(UNIX AND NOT APPLE)
+    set(RESET "\\033[0m")
+    set(RED "\\033[31m")
+    set(GREEN "\\033[32m")
+    set(YELLOW "\\033[33m")
+    set(BLUE "\\033[34m")
+    set(MAGENTA "\\033[35m")
+    set(CYAN "\\033[36m")
+    set(WHITE "\\033[37m")
+else()
+    set(RESET "")
+    set(RED "")
+    set(GREEN "")
+    set(YELLOW "")
+    set(BLUE "")
+    set(MAGENTA "")
+    set(CYAN "")
+    set(WHITE "")
+endif()
+
+set(SEMICOLON "\;")
